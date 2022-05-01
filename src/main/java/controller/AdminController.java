@@ -43,14 +43,6 @@ public class AdminController extends GenericController {
         this.loginStage = loginStage;
     }
 
-
-    /**
-     * 
-     */
-    public void handleViewMedicationDetails() {
-        // TODO implement here
-    }
-
     @FXML
     public void handleLogout() {
         stage.close();
@@ -68,6 +60,7 @@ public class AdminController extends GenericController {
         updateMedicationsModel();
         initializeMedicationsTable();
     }
+
     /**
      * 
      */
@@ -89,7 +82,7 @@ public class AdminController extends GenericController {
             TableRow<Medication> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty())) {
-                    MessageAlert.showMessage(null, Alert.AlertType.CONFIRMATION, "", "");
+                    handleViewMedicationDetails(row.getItem());
                 }
             });
             return row;
@@ -98,7 +91,18 @@ public class AdminController extends GenericController {
         medicationNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
         medicationProducerColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getProducer()));
         medicationStockColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getStock().toString()));
+    }
 
+    /**
+     *
+     */
+    private void handleViewMedicationDetails(Medication medication) {
+        MedicationDetailsController medicationDetailsController = new MedicationDetailsController(services, new Stage(), medication);
+        try {
+            medicationDetailsController.initiateViewMedicationDetailsProcedure();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void updateMedicationsModel() {
