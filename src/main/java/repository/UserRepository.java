@@ -26,11 +26,13 @@ public class UserRepository {
     public User findByUsernameAndPassword(String username, String password) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            return session.createQuery("from User user where user.username=?1 and user.password=?2", User.class)
+            User user =  session.createQuery("from User user where user.username=?1 and user.password=?2", User.class)
                     .setParameter(1, username)
                     .setParameter(2, password)
                     .setMaxResults(1)
                     .uniqueResult();
+            session.getTransaction().commit();
+            return user;
         }
         catch (HibernateException e) {
             e.printStackTrace();

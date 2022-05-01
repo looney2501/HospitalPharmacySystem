@@ -1,16 +1,15 @@
 
 import controller.LoginController;
 import javafx.application.Application;
-import javafx.stage.Stage;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import repository.MedicationRepository;
 import repository.UserRepository;
 import services.Services;
 
 import java.io.IOException;
-import java.util.*;
 
 /**
  * 
@@ -21,7 +20,7 @@ public class MainClass extends Application {
      * 
      */
     @Override
-    public void start(Stage primaryStage) {
+    public void start(javafx.stage.Stage primaryStage) {
         Services services = initializeServices();
         LoginController loginController = new LoginController(services, primaryStage);
         try {
@@ -48,6 +47,7 @@ public class MainClass extends Application {
     private Services initializeServices() {
         SessionFactory sessionFactory = initializeSessionFactory();
         UserRepository userRepository = new UserRepository(sessionFactory);
-        return new Services(userRepository);
+        MedicationRepository medicationRepository = new MedicationRepository(sessionFactory);
+        return new Services(userRepository, medicationRepository);
     }
 }

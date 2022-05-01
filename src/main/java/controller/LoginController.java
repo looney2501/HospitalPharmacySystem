@@ -1,14 +1,11 @@
 package controller;
 
 import domain.entities.User;
-import domain.enums.UserType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import services.Services;
 import services.exceptions.ServicesException;
 
@@ -25,11 +22,11 @@ public class LoginController extends GenericController {
     @FXML
     private TextField passwordTextField;
 
-    public LoginController(Services services, Stage stage) {
+    public LoginController(Services services, javafx.stage.Stage stage) {
         super(services, stage);
     }
 
-    public LoginController(User loggedUser, Services services, Stage stage) {
+    public LoginController(User loggedUser, Services services, javafx.stage.Stage stage) {
         super(loggedUser, services, stage);
     }
 
@@ -50,6 +47,7 @@ public class LoginController extends GenericController {
     /**
      *
      */
+    @FXML
     public void handleLogin() {
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
@@ -61,28 +59,19 @@ public class LoginController extends GenericController {
         }
         else {
             try {
-//                MainController mainController = new MainController();
-//                mainController.setService(service);
-//                mainController.setLoggedUsername(username);
-//                mainController.setLoginStage(stage);
-//
-                UserType userType = services.login(username, password);
-                MessageAlert.showMessage(null, Alert.AlertType.CONFIRMATION, "ok", userType.toString());
-//
-//                FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("../client/fxml/main-view.fxml"));
-//                fxmlLoader.setController(mainController);
-//                Parent root = fxmlLoader.load();
-//
-//                Stage mainStage = new Stage();
-//                mainStage.setTitle("Swimming races administration");
-//                mainStage.setScene(new Scene(root));
-//                mainController.setStage(mainStage);
-//                mainStage.show();
-//
-//                resetTextFields();
-//                stage.hide();
+                User loggedUser = services.login(username, password);
+                switch (loggedUser.getUserType()) {
+                    case Admin -> initiateAdminLoginProcedure(loggedUser);
+                    case Pharmacist -> {
+                    }
+                    case MedicalPersonnel -> {
+                    }
+                }
+                stage.hide();
             } catch (ServicesException e) {
                 MessageAlert.showErrorMessage(null, e.getMessage());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -92,4 +81,8 @@ public class LoginController extends GenericController {
         passwordTextField.clear();
     }
 
+    private void initiateAdminLoginProcedure(User admin) throws IOException {
+        AdminController adminController = new AdminController(admin, services, new javafx.stage.Stage(), this.stage);
+        adminController.initiateViewMenuProcedure();
+    }
 }

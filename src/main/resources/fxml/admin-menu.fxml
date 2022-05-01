@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="493.0"
+            prefWidth="680.0" stylesheets="@../css/admin-menu.css" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <TableView fx:id="medicationsTable" layoutX="73.0" layoutY="70.0" prefHeight="355.0" prefWidth="378.0">
+      <columns>
+          <TableColumn fx:id="medicationIDColumn" prefWidth="33.5999755859375" text="ID"/>
+          <TableColumn fx:id="medicationNameColumn" prefWidth="131.199951171875" text="Medication Name"/>
+          <TableColumn fx:id="medicationProducerColumn" prefWidth="136.0" text="Producer"/>
+          <TableColumn fx:id="medicationStockColumn" prefWidth="79.20001220703125" text="Stock"/>
+      </columns>
+    </TableView>
+    <GridPane fx:id="actionsGridView" layoutX="522.0" layoutY="70.0" prefHeight="214.0" prefWidth="96.0">
+      <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+      </columnConstraints>
+      <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+      </rowConstraints>
+        <children>
+          <Button mnemonicParsing="false" prefHeight="0.0" prefWidth="96.0" text="DELETE">
+              <font>
+                  <Font size="20.0"/>
+              </font>
+          </Button>
+          <Button mnemonicParsing="false" prefHeight="0.0" prefWidth="96.0" text="ADD" GridPane.rowIndex="1">
+              <font>
+                  <Font size="20.0"/>
+              </font>
+          </Button>
+          <Button mnemonicParsing="false" prefHeight="3.0" prefWidth="96.0" text="MODIFY" GridPane.rowIndex="2">
+              <font>
+                  <Font size="20.0"/>
+              </font>
+          </Button>
+        </children>
+    </GridPane>
+    <Button fx:id="logoutButton" onAction="#handleLogout" layoutX="525.0" layoutY="381.0" mnemonicParsing="false" prefHeight="43.0"
+            prefWidth="89.0" text="Logout"/>
+</AnchorPane>

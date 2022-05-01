@@ -19,5 +19,6 @@
         <property name="format_sql">true</property>
 
         <mapping class="domain.entities.User"/>
+        <mapping class="domain.entities.Medication"/>
     </session-factory>
 </hibernate-configuration>

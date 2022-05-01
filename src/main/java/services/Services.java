@@ -1,12 +1,13 @@
 package services;
 
+import domain.entities.Medication;
 import domain.entities.User;
 import domain.enums.UserType;
+import repository.MedicationRepository;
 import repository.UserRepository;
 import services.exceptions.ServicesException;
 
-import javax.sql.rowset.serial.SerialException;
-import java.util.*;
+import java.util.List;
 
 /**
  * 
@@ -14,30 +15,32 @@ import java.util.*;
 public class Services {
 
     private final UserRepository userRepository;
+    private final MedicationRepository medicationRepository;
 
-    public Services(UserRepository userRepository) {
+    public Services(UserRepository userRepository, MedicationRepository medicationRepository) {
         this.userRepository = userRepository;
+        this.medicationRepository = medicationRepository;
     }
 
     /**
      * @param username 
      * @param password
      */
-    public UserType login(String username, String password) throws ServicesException {
+    public User login(String username, String password) throws ServicesException {
         User user = userRepository.findByUsernameAndPassword(username, password);
         if (user == null) {
             throw new ServicesException("User does not exist!");
         }
         else {
-            return user.getUserType();
+            return user;
         }
     }
 
     /**
-     * 
+     * @return
      */
-    public void getAllMedications() {
-        // TODO implement here
+    public List<Medication> getAllMedications() {
+        return medicationRepository.getAll();
     }
 
     /**
