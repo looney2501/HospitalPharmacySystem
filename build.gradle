@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
 group 'org.example'
@@ -15,6 +17,15 @@ dependencies {
 
     implementation 'org.postgresql:postgresql:42.3.4'
     implementation 'org.hibernate.orm:hibernate-core:6.0.0.Final'
+}
+
+javafx {
+    version = "17.0.1"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+application {
+    mainClass = 'MainClass'
 }
 
 test {
