@@ -6,6 +6,7 @@ import domain.enums.UserType;
 import repository.MedicationRepository;
 import repository.UserRepository;
 import services.exceptions.ServicesException;
+import services.validators.MedicationValidator;
 
 import java.util.List;
 
@@ -49,8 +50,10 @@ public class Services {
      * @param stock 
      * @param description
      */
-    public void addMedication(String name, String producer, String stock, String description) {
-        // TODO implement here
+    public void addMedication(String name, String producer, Integer stock, String description) {
+        Medication medication = new Medication(name, producer, stock, description);
+        MedicationValidator.validate(medication);
+        medicationRepository.add(medication);
     }
 
 }

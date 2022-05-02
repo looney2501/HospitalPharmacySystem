@@ -21,31 +21,29 @@
       </columns>
     </TableView>
     <GridPane fx:id="actionsGridView" layoutX="522.0" layoutY="70.0" prefHeight="214.0" prefWidth="96.0">
-      <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-      </columnConstraints>
-      <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-      </rowConstraints>
-        <children>
-          <Button mnemonicParsing="false" prefHeight="0.0" prefWidth="96.0" text="DELETE">
-              <font>
-                  <Font size="20.0"/>
-              </font>
-          </Button>
-          <Button mnemonicParsing="false" prefHeight="0.0" prefWidth="96.0" text="ADD" GridPane.rowIndex="1">
-              <font>
-                  <Font size="20.0"/>
-              </font>
-          </Button>
-          <Button mnemonicParsing="false" prefHeight="3.0" prefWidth="96.0" text="MODIFY" GridPane.rowIndex="2">
-              <font>
-                  <Font size="20.0"/>
-              </font>
-          </Button>
-        </children>
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <Button mnemonicParsing="false" prefHeight="0.0" prefWidth="96.0" text="DELETE">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+        <Button onAction="#initiateAddMedicationProcedure" mnemonicParsing="false" prefHeight="0.0" prefWidth="96.0" text="ADD" GridPane.rowIndex="1">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
+        <Button mnemonicParsing="false" prefHeight="3.0" prefWidth="96.0" text="MODIFY" GridPane.rowIndex="2">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Button>
     </GridPane>
     <Button fx:id="logoutButton" onAction="#handleLogout" layoutX="525.0" layoutY="381.0" mnemonicParsing="false" prefHeight="43.0"
             prefWidth="89.0" text="Logout"/>

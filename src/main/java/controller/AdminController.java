@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -53,7 +52,12 @@ public class AdminController extends GenericController {
      * 
      */
     public void initiateAddMedicationProcedure() {
-        // TODO implement here
+        MedicationDetailsController medicationDetailsController = new MedicationDetailsController(services, new Stage(), new Medication(), this);
+        try {
+            medicationDetailsController.initiateAddMedicationProcedure();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void initialize() {
@@ -97,12 +101,16 @@ public class AdminController extends GenericController {
      *
      */
     private void handleViewMedicationDetails(Medication medication) {
-        MedicationDetailsController medicationDetailsController = new MedicationDetailsController(services, new Stage(), medication);
+        MedicationDetailsController medicationDetailsController = new MedicationDetailsController(services, new Stage(), medication, this);
         try {
             medicationDetailsController.initiateViewMedicationDetailsProcedure();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+    }
+
+    public void refresh() {
+        updateMedicationsModel();
     }
 
     private void updateMedicationsModel() {

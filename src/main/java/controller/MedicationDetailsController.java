@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import services.Services;
+import services.exceptions.ServicesException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,6 +22,7 @@ import java.net.URL;
 public class MedicationDetailsController extends GenericController {
 
     private final Medication medication;
+    private final AdminController adminController;
     @FXML
     private TextField nameTextField;
     @FXML
@@ -34,16 +36,34 @@ public class MedicationDetailsController extends GenericController {
     @FXML
     private Button cancelButton;
 
-    public MedicationDetailsController(Services services, Stage stage, Medication medication) {
+    public MedicationDetailsController(Services services, Stage stage, Medication medication, AdminController adminController) {
         super(services, stage);
         this.medication = medication;
+        this.adminController = adminController;
     }
 
     /**
      * 
      */
     public void handleAddMedication() {
-        // TODO implement here
+        String name = nameTextField.getText();
+        String producer = producerTextField.getText();
+        Integer stock;
+        try {
+            stock = Integer.valueOf(stockTextField.getText());
+        }
+        catch (NumberFormatException e) {
+            stock = -1;
+        }
+        String description = descriptionTextArea.getText();
+        try {
+            services.addMedication(name, producer, stock, description);
+            adminController.refresh();
+            stage.close();
+        }
+        catch (ServicesException e) {
+            MessageAlert.showErrorMessage(null, e.getMessage());
+        }
     }
 
     @FXML
@@ -87,8 +107,18 @@ public class MedicationDetailsController extends GenericController {
     /**
      * 
      */
-    public void initiateAddMedicationProcedure() {
-        // TODO implement here
-    }
+    public void initiateAddMedicationProcedure() throws IOException {
+        URL path = this.getClass().getResource("../fxml/medication-details.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader(path);
+        fxmlLoader.setController(this);
 
+        Parent root = fxmlLoader.load();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Add medication");
+        saveButton.setOnAction(x -> {
+            handleAddMedication();
+        });
+        stage.show();
+    }
 }

@@ -34,7 +34,11 @@ public class MedicationRepository {
      * @param medication
      */
     public void add(Medication medication) {
-        // TODO implement here
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.persist(medication);
+            session.getTransaction().commit();
+        }
     }
 
 }
