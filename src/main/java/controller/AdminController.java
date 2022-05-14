@@ -48,9 +48,6 @@ public class AdminController extends GenericController {
         loginStage.show();
     }
 
-    /**
-     * 
-     */
     public void initiateAddMedicationProcedure() {
         MedicationDetailsController medicationDetailsController = new MedicationDetailsController(services, new Stage(), new Medication(), this);
         try {
@@ -65,9 +62,6 @@ public class AdminController extends GenericController {
         initializeMedicationsTable();
     }
 
-    /**
-     * 
-     */
     public void initiateViewMenuProcedure() throws IOException {
         URL path = this.getClass().getResource("../fxml/admin-menu.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(path);
@@ -97,9 +91,6 @@ public class AdminController extends GenericController {
         medicationStockColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getStock().toString()));
     }
 
-    /**
-     *
-     */
     private void handleViewMedicationDetails(Medication medication) {
         MedicationDetailsController medicationDetailsController = new MedicationDetailsController(services, new Stage(), medication, this);
         try {
@@ -107,6 +98,12 @@ public class AdminController extends GenericController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void handleDeleteMedication() {
+        Integer id = medicationsTable.getSelectionModel().getSelectedItem().getId();
+        services.deleteMedication(id);
+        refresh();
     }
 
     public void refresh() {

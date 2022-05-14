@@ -23,8 +23,8 @@ public class MedicationRepository {
     public List<Medication> getAll() {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            List<Medication> medications = session.createQuery("from Medication", Medication.class)
-                    .list();
+            List<Medication> medications = session.createQuery("select m from Medication m", Medication.class)
+                            .getResultList();
             session.getTransaction().commit();
             return medications;
         }
@@ -37,6 +37,23 @@ public class MedicationRepository {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.persist(medication);
+            session.getTransaction().commit();
+        }
+    }
+
+    public Medication find(Integer id) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Medication medication = session.find(Medication.class, id);
+            session.getTransaction().commit();
+            return medication;
+        }
+    }
+
+    public void delete(Medication medication) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.remove(medication);
             session.getTransaction().commit();
         }
     }
