@@ -1,48 +1,31 @@
 package domain.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-/**
- * 
- */
 @Entity
 @Table(name = "medications")
 public class Medication {
-
     @Id
     @GeneratedValue(generator = "incrementor")
     @GenericGenerator(name = "incrementor", strategy = "increment")
     private Integer id;
 
-    /**
-     *
-     */
     private String name;
 
-    /**
-     *
-     */
     private String producer;
 
-    /**
-     *
-     */
     private Integer stock;
 
-    /**
-     *
-     */
     private String description;
 
-    /**
-     * Default constructor
-     */
+    @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderMedication> orders = new ArrayList<>();
+
     public Medication() {
     }
 
@@ -99,5 +82,26 @@ public class Medication {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<OrderMedication> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderMedication> orders) {
+        this.orders = orders;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Medication that = (Medication) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

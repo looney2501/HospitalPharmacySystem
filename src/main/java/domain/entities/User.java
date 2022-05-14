@@ -13,38 +13,20 @@ import java.util.*;
 @Table(name = "users")
 public class User {
 
-    /**
-     *
-     */
     @Id
     @GeneratedValue(generator = "incrementor")
     @GenericGenerator(name = "incrementor", strategy = "increment")
     private Integer id;
 
-    /**
-     * 
-     */
     private String username;
 
-    /**
-     * 
-     */
     private String password;
 
-    /**
-     * 
-     */
     private String name;
 
-    /**
-     * 
-     */
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
-    /**
-     * Default constructor
-     */
     public User() {
     }
 

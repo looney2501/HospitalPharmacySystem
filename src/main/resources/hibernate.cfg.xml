@@ -20,5 +20,7 @@
 
         <mapping class="domain.entities.User"/>
         <mapping class="domain.entities.Medication"/>
+        <mapping class="domain.entities.Order"/>
+        <mapping class="domain.entities.OrderMedication"/>
     </session-factory>
 </hibernate-configuration>
