@@ -42,9 +42,6 @@ public class MedicationDetailsController extends GenericController {
         this.parentController = parent;
     }
 
-    /**
-     * 
-     */
     public void handleAddMedication() {
         String name = nameTextField.getText();
         String producer = producerTextField.getText();

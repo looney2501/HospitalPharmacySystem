@@ -1,5 +1,6 @@
 package controller;
 
+import domain.entities.Medication;
 import domain.entities.Order;
 import domain.entities.User;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import services.Services;
@@ -89,9 +91,27 @@ public class MedicalPersonnelController extends GenericController {
 
     public void initializeOrdersTable() {
         ordersTable.setItems(ordersModel);
+        ordersTable.setRowFactory(tv -> {
+            TableRow<Order> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2) {
+                    handleViewOrderDetails(row.getItem());
+                }
+            });
+            return row;
+        });
         orderIdColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getId().toString()));
         orderTimestampColumn.setCellValueFactory(param ->
                 new SimpleStringProperty(param.getValue().getTimestamp().format(DateTimeFormatter.ofPattern("HH:mm yy-MM-dd"))));
         orderStatusColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getStatus().toString()));
+    }
+
+    private void handleViewOrderDetails(Order order) {
+        OrderDetailsController orderDetailsController = new OrderDetailsController(loggedUser, services, new Stage(), order);
+        try {
+            orderDetailsController.initiateViewOrderProcedure();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -17,6 +17,11 @@ public class MedicationDTO {
         this.quantity = 1;
     }
 
+    public MedicationDTO(Medication medication, Integer quantity) {
+        this.medication = medication;
+        this.quantity = quantity;
+    }
+
     public Medication getMedication() {
         return medication;
     }
