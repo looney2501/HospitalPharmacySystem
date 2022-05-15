@@ -3,7 +3,6 @@ package controller;
 import domain.dtos.MedicationDTO;
 import domain.entities.Medication;
 import domain.entities.Order;
-import domain.entities.OrderMedication;
 import domain.entities.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -54,7 +53,7 @@ public class OrderDetailsController extends GenericController {
         initializeLabels();
     }
 
-    public void initiateViewOrderProcedure() throws IOException {
+    public void initiateViewOrderDetailsProcedure() throws IOException {
         URL path = this.getClass().getResource("../fxml/order-details.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(path);
         fxmlLoader.setController(this);

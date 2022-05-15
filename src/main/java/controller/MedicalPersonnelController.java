@@ -1,6 +1,5 @@
 package controller;
 
-import domain.entities.Medication;
 import domain.entities.Order;
 import domain.entities.User;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,7 +16,6 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import services.Services;
 
-import javax.swing.text.DateFormatter;
 import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -95,7 +93,7 @@ public class MedicalPersonnelController extends GenericController {
             TableRow<Order> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2) {
-                    handleViewOrderDetails(row.getItem());
+                    initiateViewOrderDetailsProcedure(row.getItem());
                 }
             });
             return row;
@@ -106,10 +104,10 @@ public class MedicalPersonnelController extends GenericController {
         orderStatusColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getStatus().toString()));
     }
 
-    private void handleViewOrderDetails(Order order) {
+    private void initiateViewOrderDetailsProcedure(Order order) {
         OrderDetailsController orderDetailsController = new OrderDetailsController(loggedUser, services, new Stage(), order);
         try {
-            orderDetailsController.initiateViewOrderProcedure();
+            orderDetailsController.initiateViewOrderDetailsProcedure();
         } catch (IOException e) {
             e.printStackTrace();
         }
