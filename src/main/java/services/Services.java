@@ -84,4 +84,15 @@ public class Services {
         orderRepository.add(order, medicationDTOs);
     }
 
+    public void cancelOrder(Order order) {
+        order.setStatus(OrderStatus.Cancelled);
+        order.getMedications().forEach(x -> {
+            Integer stock = x.getMedication().getStock();
+            stock += x.getQuantity();
+            x.getMedication().setStock(stock);
+            medicationRepository.modify(x.getMedication());
+        });
+        orderRepository.modify(order);
+    }
+
 }

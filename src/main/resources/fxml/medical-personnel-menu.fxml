@@ -44,7 +44,7 @@
                 <Font size="15.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="34.0" prefWidth="130.0" text="CANCEL" GridPane.rowIndex="3">
+        <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleCancelOrder" prefHeight="34.0" prefWidth="130.0" text="CANCEL" GridPane.rowIndex="3">
             <font>
                 <Font size="15.0" />
             </font>

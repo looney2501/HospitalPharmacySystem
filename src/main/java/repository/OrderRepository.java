@@ -49,4 +49,16 @@ public class OrderRepository {
             session.getTransaction().commit();
         }
     }
+
+    public void modify(Order newOrder) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Order oldOrder = session.getReference(newOrder);
+            oldOrder.setMedicalSection(newOrder.getMedicalSection());
+            oldOrder.setStatus(newOrder.getStatus());
+            oldOrder.setTimestamp(newOrder.getTimestamp());
+            session.persist(oldOrder);
+            session.getTransaction().commit();
+        }
+    }
 }

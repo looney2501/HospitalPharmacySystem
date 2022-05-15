@@ -60,6 +60,14 @@ public class MedicalPersonnelController extends GenericController {
         stage.hide();
     }
 
+    @FXML
+    public void handleCancelOrder() {
+        if (!ordersTable.getSelectionModel().isEmpty()) {
+            services.cancelOrder(ordersTable.getSelectionModel().getSelectedItem());
+            refresh();
+        }
+    }
+
     public void initializeViewMenuProcedure() throws IOException {
         URL path = this.getClass().getResource("../fxml/medical-personnel-menu.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(path);
