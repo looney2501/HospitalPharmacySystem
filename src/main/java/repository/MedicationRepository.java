@@ -1,11 +1,13 @@
 package repository;
 
 import domain.entities.Medication;
+import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
 
+@Transactional
 public class MedicationRepository {
     private final SessionFactory sessionFactory;
 
@@ -16,7 +18,10 @@ public class MedicationRepository {
     public List<Medication> getAll() {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            List<Medication> medications = session.createQuery("select m from Medication m", Medication.class).getResultList();
+            List<Medication> medications = session.createQuery(
+                    "select m " +
+                            "from Medication m "
+                    , Medication.class).getResultList();
             session.getTransaction().commit();
             return medications;
         }
@@ -43,6 +48,19 @@ public class MedicationRepository {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.remove(medication);
+            session.getTransaction().commit();
+        }
+    }
+
+    public void modify(Medication newMedication) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Medication oldMedication = session.getReference(newMedication);
+            oldMedication.setName(newMedication.getName());
+            oldMedication.setDescription(newMedication.getDescription());
+            oldMedication.setProducer(newMedication.getProducer());
+            oldMedication.setStock(newMedication.getStock());
+            session.persist(oldMedication);
             session.getTransaction().commit();
         }
     }

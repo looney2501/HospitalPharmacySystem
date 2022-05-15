@@ -22,7 +22,7 @@ import java.net.URL;
 public class MedicationDetailsController extends GenericController {
 
     private final Medication medication;
-    private final AdminController adminController;
+    private final GenericController parentController;
     @FXML
     private TextField nameTextField;
     @FXML
@@ -36,10 +36,10 @@ public class MedicationDetailsController extends GenericController {
     @FXML
     private Button cancelButton;
 
-    public MedicationDetailsController(Services services, Stage stage, Medication medication, AdminController adminController) {
+    public MedicationDetailsController(Services services, Stage stage, Medication medication, GenericController parent) {
         super(services, stage);
         this.medication = medication;
-        this.adminController = adminController;
+        this.parentController = parent;
     }
 
     /**
@@ -58,7 +58,7 @@ public class MedicationDetailsController extends GenericController {
         String description = descriptionTextArea.getText();
         try {
             services.addMedication(name, producer, stock, description);
-            adminController.refresh();
+            parentController.refresh();
             stage.close();
         }
         catch (ServicesException e) {
@@ -71,9 +71,6 @@ public class MedicationDetailsController extends GenericController {
         stage.close();
     }
 
-    /**
-     * 
-     */
     public void initiateViewMedicationDetailsProcedure() throws IOException {
         URL path = this.getClass().getResource("../fxml/medication-details.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(path);

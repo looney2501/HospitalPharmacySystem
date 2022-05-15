@@ -1,12 +1,16 @@
 package repository;
 
+import domain.dtos.MedicationDTO;
+import domain.entities.Medication;
 import domain.entities.Order;
 import domain.enums.OrderStatus;
+import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
 
+@Transactional
 public class OrderRepository {
     private final SessionFactory sessionFactory;
 
@@ -30,6 +34,19 @@ public class OrderRepository {
                     .getResultList();
             session.getTransaction().commit();
             return orders;
+        }
+    }
+
+    public void add(Order order, List<MedicationDTO> medicationDTOs) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            medicationDTOs.forEach(x -> {
+                Medication medication = session.getReference(x.getMedication());
+                Integer quantity = x.getQuantity();
+                order.addMedication(medication, quantity);
+            });
+            session.persist(order);
+            session.getTransaction().commit();
         }
     }
 }

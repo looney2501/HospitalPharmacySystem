@@ -1,0 +1,61 @@
+AnchorPane {
+    -fx-background-color: #9791c1
+}
+
+#backButton {
+    -fx-background-color: #604fc7;
+    -fx-background-insets: 0;
+}
+
+#backButton .text {
+    -fx-font-family: "Helvetica", Sans-serif;
+    -fx-font-weight: Bold;
+    -fx-fill: white;
+}
+
+.button {
+    -fx-background-color: white;
+    -fx-border-radius: 3px;
+    -fx-border-color: #604fc7;
+    -fx-border-width: 2px;
+    -fx-background-insets: 0;
+}
+
+.button .text {
+    -fx-font-family: "Helvetica", Sans-serif;
+    -fx-fill: black;
+    -fx-font-size: 15px;
+}
+
+#medicationsTable {
+    -fx-background-color: white;
+}
+
+#medicationsTable .column-header {
+    -fx-background-color: #604fc7;
+}
+
+#medicationsTable .column-header .text {
+    -fx-fill: white;
+    -fx-font-size: 15px;
+}
+
+.table-view {
+    -fx-background-color: white;
+}
+
+.table-view .column-header {
+    -fx-background-color: #604fc7;
+}
+
+.table-view .column-header .text {
+    -fx-fill: white;
+    -fx-font-size: 15px;
+}
+
+.label .text {
+    -fx-font-family: "Helvetica", Sans-serif;
+    /*-fx-font-weight: Bold;*/
+    -fx-font-size: 20px;
+    -fx-fill: black;
+}

@@ -15,8 +15,10 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import services.Services;
 
+import javax.swing.text.DateFormatter;
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 
 public class MedicalPersonnelController extends GenericController {
 
@@ -51,6 +53,13 @@ public class MedicalPersonnelController extends GenericController {
         loginStage.show();
     }
 
+    @FXML
+    public void initiatePlaceOrderProcedure() throws IOException {
+        NewOrderController newOrderController = new NewOrderController(loggedUser, services, new Stage(), stage, this);
+        newOrderController.initiatePlaceOrderProcedure();
+        stage.hide();
+    }
+
     public void initializeViewMenuProcedure() throws IOException {
         URL path = this.getClass().getResource("../fxml/medical-personnel-menu.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(path);
@@ -73,7 +82,8 @@ public class MedicalPersonnelController extends GenericController {
     public void initializeOrdersTable() {
         ordersTable.setItems(ordersModel);
         orderIdColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getId().toString()));
-        orderTimestampColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getTimestamp().toString()));
+        orderTimestampColumn.setCellValueFactory(param ->
+                new SimpleStringProperty(param.getValue().getTimestamp().format(DateTimeFormatter.ofPattern("HH:mm yy-MM-dd"))));
         orderStatusColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getStatus().toString()));
     }
 }

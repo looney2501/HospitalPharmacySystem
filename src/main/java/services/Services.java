@@ -1,17 +1,21 @@
 package services;
 
+import domain.dtos.MedicationDTO;
 import domain.entities.Medication;
 import domain.entities.Order;
 import domain.entities.User;
 import domain.enums.OrderStatus;
+import jakarta.transaction.Transactional;
 import repository.MedicationRepository;
 import repository.OrderRepository;
 import repository.UserRepository;
 import services.exceptions.ServicesException;
 import services.validators.MedicationValidator;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Services {
 
@@ -36,6 +40,10 @@ public class Services {
 
     public List<Medication> getAllMedications() {
         return medicationRepository.getAll();
+    }
+
+    public Medication findMedicationById(Integer id) {
+        return medicationRepository.find(id);
     }
 
     public void addMedication(String name, String producer, Integer stock, String description) {
@@ -63,6 +71,17 @@ public class Services {
         allOrders.addAll(orderRepository.getAllOrdersByStatusAndSection(OrderStatus.Confirmed, section));
         allOrders.addAll(orderRepository.getAllOrdersByStatusAndSection(OrderStatus.Cancelled, section));
         return allOrders;
+    }
+
+    public void addOrder(String medicalSection, List<MedicationDTO> medicationDTOs) {
+        Order order = new Order(medicalSection, LocalDateTime.now(), OrderStatus.Placed);
+        medicationDTOs.forEach(x -> {
+            Integer stock = x.getMedication().getStock();
+            stock -= x.getQuantity();
+            x.getMedication().setStock(stock);
+            medicationRepository.modify(x.getMedication());
+        });
+        orderRepository.add(order, medicationDTOs);
     }
 
 }

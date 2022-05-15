@@ -26,4 +26,6 @@ public abstract class GenericController {
     public void setLoggedUser(User loggedUser) {
         this.loggedUser = loggedUser;
     }
+
+    protected void refresh() {}
 }
