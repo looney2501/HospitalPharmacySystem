@@ -6,15 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import services.Services;
 import services.exceptions.ServicesException;
 
 import java.io.IOException;
 import java.net.URL;
 
-/**
- * 
- */
 public class LoginController extends GenericController {
 
     @FXML
@@ -30,9 +28,6 @@ public class LoginController extends GenericController {
         super(loggedUser, services, stage);
     }
 
-    /**
-     * 
-     */
     public void initiateLoginProcedure() throws IOException {
         URL path = this.getClass().getResource("../fxml/login.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(path);
@@ -44,9 +39,6 @@ public class LoginController extends GenericController {
         stage.show();
     }
 
-    /**
-     *
-     */
     @FXML
     public void handleLogin() {
         String username = usernameTextField.getText();
@@ -64,9 +56,9 @@ public class LoginController extends GenericController {
                     case Admin -> initiateAdminLoginProcedure(loggedUser);
                     case Pharmacist -> {
                     }
-                    case MedicalPersonnel -> {
-                    }
+                    case MedicalPersonnel -> initiateMedicalPersonnelLoginProcedure(loggedUser);
                 }
+                resetTextFields();
                 stage.hide();
             } catch (ServicesException e) {
                 MessageAlert.showErrorMessage(null, e.getMessage());
@@ -82,7 +74,14 @@ public class LoginController extends GenericController {
     }
 
     private void initiateAdminLoginProcedure(User admin) throws IOException {
-        AdminController adminController = new AdminController(admin, services, new javafx.stage.Stage(), this.stage);
+        AdminController adminController = new AdminController(admin, services, new Stage(), this.stage);
         adminController.initiateViewMenuProcedure();
     }
+
+    private void initiateMedicalPersonnelLoginProcedure(User loggedUser) throws IOException {
+        MedicalPersonnelController medicalPersonnelController = new MedicalPersonnelController(loggedUser, services, new Stage(), this.stage);
+        medicalPersonnelController.initializeViewMenuProcedure();
+    }
+
+
 }

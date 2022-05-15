@@ -6,33 +6,22 @@ import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-/**
- * 
- */
 public class MedicationRepository {
-
     private final SessionFactory sessionFactory;
 
     public MedicationRepository(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
-    /**
-     * 
-     */
     public List<Medication> getAll() {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            List<Medication> medications = session.createQuery("select m from Medication m", Medication.class)
-                            .getResultList();
+            List<Medication> medications = session.createQuery("select m from Medication m", Medication.class).getResultList();
             session.getTransaction().commit();
             return medications;
         }
     }
 
-    /**
-     * @param medication
-     */
     public void add(Medication medication) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();

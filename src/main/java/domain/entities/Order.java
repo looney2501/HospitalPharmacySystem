@@ -25,28 +25,23 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @Column(name = "has_priority")
-    private Boolean hasPriority;
-
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     List<OrderMedication> medications = new ArrayList<>();
 
     public Order() {
     }
 
-    public Order(String medicalSection, LocalDateTime timestamp, OrderStatus status, Boolean hasPriority) {
+    public Order(String medicalSection, LocalDateTime timestamp, OrderStatus status) {
         this.medicalSection = medicalSection;
         this.timestamp = timestamp;
         this.status = status;
-        this.hasPriority = hasPriority;
     }
 
-    public Order(Integer id, String medicalSection, LocalDateTime timestamp, OrderStatus status, Boolean hasPriority) {
+    public Order(Integer id, String medicalSection, LocalDateTime timestamp, OrderStatus status) {
         this.id = id;
         this.medicalSection = medicalSection;
         this.timestamp = timestamp;
         this.status = status;
-        this.hasPriority = hasPriority;
     }
 
     public Integer getId() {
@@ -79,14 +74,6 @@ public class Order {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
-    }
-
-    public Boolean getHasPriority() {
-        return hasPriority;
-    }
-
-    public void setHasPriority(Boolean hasPriority) {
-        this.hasPriority = hasPriority;
     }
 
     public List<OrderMedication> getMedications() {

@@ -17,15 +17,12 @@ public class User {
     @GeneratedValue(generator = "incrementor")
     @GenericGenerator(name = "incrementor", strategy = "increment")
     private Integer id;
-
     private String username;
-
     private String password;
-
     private String name;
-
     @Enumerated(EnumType.STRING)
     private UserType userType;
+    private String section;
 
     public User() {
     }
@@ -75,5 +72,13 @@ public class User {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public String getSection() {
+        return section;
+    }
+
+    public void setSection(String section) {
+        this.section = section;
     }
 }

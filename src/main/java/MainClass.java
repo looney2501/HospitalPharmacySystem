@@ -6,6 +6,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import repository.MedicationRepository;
+import repository.OrderRepository;
 import repository.UserRepository;
 import services.Services;
 
@@ -47,7 +48,8 @@ public class MainClass extends Application {
     private Services initializeServices() {
         SessionFactory sessionFactory = initializeSessionFactory();
         UserRepository userRepository = new UserRepository(sessionFactory);
+        OrderRepository orderRepository = new OrderRepository(sessionFactory);
         MedicationRepository medicationRepository = new MedicationRepository(sessionFactory);
-        return new Services(userRepository, medicationRepository);
+        return new Services(userRepository, medicationRepository, orderRepository);
     }
 }
