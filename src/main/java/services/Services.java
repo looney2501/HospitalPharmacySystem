@@ -52,6 +52,12 @@ public class Services {
         medicationRepository.add(medication);
     }
 
+    public void modifyMedication(Integer id, String name, String producer, Integer stock, String description) {
+        Medication medication = new Medication(id, name, producer, stock, description);
+        MedicationValidator.validate(medication);
+        medicationRepository.modify(medication);
+    }
+
     public void deleteMedication(Integer id) {
         if (id == null) {
             throw new ServicesException("ID cannot be null!");

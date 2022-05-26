@@ -37,7 +37,7 @@
                 <Font size="20.0" />
             </font>
         </Button>
-        <Button mnemonicParsing="false" prefHeight="3.0" prefWidth="96.0" text="MODIFY" GridPane.rowIndex="2">
+        <Button mnemonicParsing="false" onAction="#initiateModifyMedicationProcedure" prefHeight="3.0" prefWidth="96.0" text="MODIFY" GridPane.rowIndex="2">
             <font>
                 <Font size="20.0" />
             </font>

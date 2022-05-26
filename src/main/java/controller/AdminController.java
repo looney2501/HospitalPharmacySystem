@@ -53,6 +53,7 @@ public class AdminController extends GenericController {
         loginStage.show();
     }
 
+    @FXML
     public void initiateAddMedicationProcedure() {
         MedicationDetailsController medicationDetailsController = new MedicationDetailsController(services, new Stage(), new Medication(), this);
         try {
@@ -71,6 +72,17 @@ public class AdminController extends GenericController {
         stage.setScene(new Scene(root));
         stage.setTitle("Hospital Pharmacy System");
         stage.show();
+    }
+
+    @FXML
+    public void initiateModifyMedicationProcedure() {
+        Medication medication = medicationsTable.getSelectionModel().getSelectedItem();
+        MedicationDetailsController medicationDetailsController = new MedicationDetailsController(services, new Stage(), medication, this);
+        try {
+            medicationDetailsController.initiateModifyMedicationProcedure();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initializeMedicationsTable() {

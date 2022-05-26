@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -42,6 +43,7 @@ public class MedicationDetailsController extends GenericController {
         this.parentController = parent;
     }
 
+    @FXML
     public void handleAddMedication() {
         String name = nameTextField.getText();
         String producer = producerTextField.getText();
@@ -56,6 +58,30 @@ public class MedicationDetailsController extends GenericController {
         try {
             services.addMedication(name, producer, stock, description);
             parentController.refresh();
+            stage.close();
+        }
+        catch (ServicesException e) {
+            MessageAlert.showErrorMessage(null, e.getMessage());
+        }
+    }
+
+    @FXML
+    public void handleModifyMedication() {
+        Integer id = medication.getId();
+        String name = nameTextField.getText();
+        String producer = producerTextField.getText();
+        Integer stock;
+        try {
+            stock = Integer.valueOf(stockTextField.getText());
+        }
+        catch (NumberFormatException e) {
+            stock = -1;
+        }
+        String description = descriptionTextArea.getText();
+        try {
+            services.modifyMedication(id, name, producer, stock, description);
+            parentController.refresh();
+            MessageAlert.showMessage(null, Alert.AlertType.CONFIRMATION, "Confirmation", "Medication modified successfully!");
             stage.close();
         }
         catch (ServicesException e) {
@@ -98,9 +124,6 @@ public class MedicationDetailsController extends GenericController {
         saveButton.setVisible(false);
     }
 
-    /**
-     * 
-     */
     public void initiateAddMedicationProcedure() throws IOException {
         URL path = this.getClass().getResource("../fxml/medication-details.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(path);
@@ -110,9 +133,22 @@ public class MedicationDetailsController extends GenericController {
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Add medication");
-        saveButton.setOnAction(x -> {
-            handleAddMedication();
-        });
+        saveButton.setOnAction(x -> handleAddMedication());
         stage.show();
+    }
+
+    public void initiateModifyMedicationProcedure() throws IOException {
+        URL path = this.getClass().getResource("../fxml/medication-details.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader(path);
+        fxmlLoader.setController(this);
+
+        Parent root = fxmlLoader.load();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Add medication");
+        saveButton.setOnAction(x -> handleModifyMedication());
+        stage.show();
+
+        loadTextFieldData();
     }
 }
