@@ -7,30 +7,27 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="547.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-    <TableView fx:id="ordersTable" layoutX="14.0" layoutY="52.0" prefHeight="332.0" prefWidth="367.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="600.0" stylesheets="@../css/pharmacist-menu.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <TableView fx:id="ordersTable" layoutX="14.0" layoutY="52.0" prefHeight="474.0" prefWidth="367.0">
       <columns>
-          <TableColumn fx:id="orderIdColumn" prefWidth="109.60003471374512" text="Order ID"/>
-          <TableColumn fx:id="orderTimestampColumn" prefWidth="119.99994659423828" text="Time"/>
-          <TableColumn fx:id="orderStatusColumn" prefWidth="137.60009765625" text="Status"/>
+          <TableColumn fx:id="orderIdColumn" prefWidth="109.60003471374512" text="Order ID" />
+          <TableColumn fx:id="orderTimestampColumn" prefWidth="119.99994659423828" text="Time" />
+          <TableColumn fx:id="orderStatusColumn" prefWidth="137.60009765625" text="Status" />
       </columns>
     </TableView>
-    <Button layoutX="454.0" onAction="#handleLogout" layoutY="342.0" mnemonicParsing="false" prefHeight="43.0"
-            prefWidth="79.0" text="Logout">
+    <Button fx:id="logoutButton" layoutX="444.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="43.0" prefWidth="141.0" text="LOG OUT">
         <font>
-          <Font size="15.0"/>
+          <Font size="15.0" />
         </font>
     </Button>
-    <Button layoutX="421.0" layoutY="168.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="111.0"
-            text="Honor order">
+    <Button layoutX="411.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleHonorOrder" prefHeight="43.0" prefWidth="174.0" text="HONOR ORDER">
         <font>
-          <Font size="15.0"/>
+          <Font size="15.0" />
         </font>
     </Button>
-    <Label layoutX="203.0" layoutY="14.0" text="Received orders">
+    <Label layoutX="229.0" layoutY="14.0" text="Received orders">
         <font>
-          <Font size="20.0"/>
+          <Font size="20.0" />
         </font>
     </Label>
 </AnchorPane>

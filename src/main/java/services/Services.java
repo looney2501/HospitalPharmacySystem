@@ -109,4 +109,8 @@ public class Services {
         orderRepository.modify(order);
     }
 
+    public void honorOrder(Order order) {
+        order.setStatus(OrderStatus.Honored);
+        orderRepository.modify(order);
+    }
 }

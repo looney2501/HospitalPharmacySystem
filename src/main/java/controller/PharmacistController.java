@@ -48,6 +48,15 @@ public class PharmacistController extends GenericController {
         loginStage.show();
     }
 
+    @FXML
+    public void handleHonorOrder() {
+        if (!ordersTable.getSelectionModel().isEmpty()) {
+            Order order = ordersTable.getSelectionModel().getSelectedItem();
+            services.honorOrder(order);
+            refresh();
+        }
+    }
+
     public void refresh() {
         updateOrdersModel();
     }
@@ -69,18 +78,27 @@ public class PharmacistController extends GenericController {
 
     private void initializeOrdersTable() {
         ordersTable.setItems(ordersModel);
-//        ordersTable.setRowFactory(tv -> {
-//            TableRow<Order> row = new TableRow<>();
-//            row.setOnMouseClicked(event -> {
-//                if (event.getClickCount() == 2) {
-//                    initiateViewOrderDetailsProcedure(row.getItem());
-//                }
-//            });
-//            return row;
-//        });
+        ordersTable.setRowFactory(tv -> {
+            TableRow<Order> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2) {
+                    initiateViewOrderDetailsProcedure(row.getItem());
+                }
+            });
+            return row;
+        });
         orderIdColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getId().toString()));
         orderTimestampColumn.setCellValueFactory(param ->
                 new SimpleStringProperty(param.getValue().getTimestamp().format(DateTimeFormatter.ofPattern("HH:mm yy-MM-dd"))));
         orderStatusColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getStatus().toString()));
+    }
+
+    private void initiateViewOrderDetailsProcedure(Order order) {
+        OrderDetailsController orderDetailsController = new OrderDetailsController(services, new Stage(), order);
+        try {
+            orderDetailsController.initiateViewOrderDetailsProcedure();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

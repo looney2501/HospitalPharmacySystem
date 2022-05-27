@@ -42,6 +42,11 @@ public class OrderDetailsController extends GenericController {
     private final ObservableList<MedicationDTO> medicationsModel = FXCollections.observableArrayList();
     private final Order order;
 
+    public OrderDetailsController(Services services, Stage stage, Order order) {
+        super(services, stage);
+        this.order = order;
+    }
+
     public OrderDetailsController(User loggedUser, Services services, Stage stage, Order order) {
         super(loggedUser, services, stage);
         this.order = order;
