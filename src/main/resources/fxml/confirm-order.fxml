@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="506.0" stylesheets="@../css/confirm-order.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="medicationsTable" layoutX="56.0" layoutY="66.0" prefHeight="323.0" prefWidth="394.0">
+        <columns>
+          <TableColumn fx:id="medicationNameColumn" prefWidth="144.79999160766602" text="Medication name" />
+          <TableColumn fx:id="medicationProducerColumn" prefWidth="167.99998474121094" text="Producer" />
+            <TableColumn fx:id="medicationQuantityColumn" prefWidth="81.60003662109375" text="Quantity" />
+        </columns>
+      </TableView>
+      <Label layoutX="196.0" layoutY="14.0" text="Order details">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button layoutX="56.0" layoutY="420.0" mnemonicParsing="false" onAction="#handleConfirmOrder" prefHeight="30.0" prefWidth="94.0" text="CONFIRM">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="264.0" layoutY="419.0" mnemonicParsing="false" onAction="#handleIncompleteOrder" prefHeight="31.0" prefWidth="185.0" text="INCOMPLETE ORDER">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

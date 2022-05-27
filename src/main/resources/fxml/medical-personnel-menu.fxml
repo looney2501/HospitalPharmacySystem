@@ -39,7 +39,7 @@
             <RowConstraints maxHeight="87.20003356933594" minHeight="10.0" prefHeight="55.99998779296874" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="63.400000000000006" minHeight="10.0" prefHeight="55.20001220703125" vgrow="SOMETIMES" />
         </rowConstraints>
-        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="34.0" prefWidth="130.0" text="CONFIRM" GridPane.rowIndex="2">
+        <Button alignment="CENTER" mnemonicParsing="false" onAction="#initiateConfirmOrderProcedure" prefHeight="34.0" prefWidth="130.0" text="CONFIRM" GridPane.rowIndex="2">
             <font>
                 <Font size="15.0" />
             </font>

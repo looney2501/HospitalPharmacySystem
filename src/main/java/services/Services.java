@@ -73,6 +73,7 @@ public class Services {
         allOrders.addAll(orderRepository.getAllOrdersByStatusAndSection(OrderStatus.PlacedPriority, section));
         allOrders.addAll(orderRepository.getAllOrdersByStatusAndSection(OrderStatus.Placed, section));
         allOrders.addAll(orderRepository.getAllOrdersByStatusAndSection(OrderStatus.Confirmed, section));
+        allOrders.addAll(orderRepository.getAllOrdersByStatusAndSection(OrderStatus.ConfirmedIncomplete, section));
         allOrders.addAll(orderRepository.getAllOrdersByStatusAndSection(OrderStatus.Cancelled, section));
         return allOrders;
     }
@@ -83,6 +84,7 @@ public class Services {
         allOrders.addAll(orderRepository.getAllOrdersByStatus(OrderStatus.Placed));
         allOrders.addAll(orderRepository.getAllOrdersByStatus(OrderStatus.Honored));
         allOrders.addAll(orderRepository.getAllOrdersByStatus(OrderStatus.Confirmed));
+        allOrders.addAll(orderRepository.getAllOrdersByStatus(OrderStatus.ConfirmedIncomplete));
         allOrders.addAll(orderRepository.getAllOrdersByStatus(OrderStatus.Cancelled));
         return allOrders;
     }
@@ -112,5 +114,17 @@ public class Services {
     public void honorOrder(Order order) {
         order.setStatus(OrderStatus.Honored);
         orderRepository.modify(order);
+    }
+
+    public void confirmOrder(Order order) {
+        order.setStatus(OrderStatus.Confirmed);
+        orderRepository.modify(order);
+    }
+
+    public void placeIncompleteOrder(Order order, List<MedicationDTO> medicationDTOs) {
+        order.setStatus(OrderStatus.ConfirmedIncomplete);
+        orderRepository.modify(order);
+        Order newOrder = new Order(order.getMedicalSection(), LocalDateTime.now(), OrderStatus.PlacedPriority);
+        orderRepository.add(newOrder, medicationDTOs);
     }
 }

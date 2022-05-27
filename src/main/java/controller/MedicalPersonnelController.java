@@ -68,6 +68,15 @@ public class MedicalPersonnelController extends GenericController {
         }
     }
 
+    @FXML
+    public void initiateConfirmOrderProcedure() throws IOException {
+        if (!ordersTable.getSelectionModel().isEmpty()) {
+            Order order = ordersTable.getSelectionModel().getSelectedItem();
+            ConfirmOrderController confirmOrderController = new ConfirmOrderController(loggedUser, services, new Stage(), this, order);
+            confirmOrderController.initiateConfirmOrderProcedure();
+        }
+    }
+
     public void initializeViewMenuProcedure() throws IOException {
         URL path = this.getClass().getResource("../fxml/medical-personnel-menu.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(path);

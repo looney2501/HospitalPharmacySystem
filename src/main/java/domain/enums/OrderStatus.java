@@ -5,5 +5,6 @@ public enum OrderStatus {
     PlacedPriority,
     Cancelled,
     Honored,
-    Confirmed
+    Confirmed,
+    ConfirmedIncomplete
 }
