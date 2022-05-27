@@ -5,7 +5,6 @@ import domain.entities.Medication;
 import domain.entities.Order;
 import domain.entities.User;
 import domain.enums.OrderStatus;
-import jakarta.transaction.Transactional;
 import repository.MedicationRepository;
 import repository.OrderRepository;
 import repository.UserRepository;
@@ -15,7 +14,6 @@ import services.validators.MedicationValidator;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Services {
 
@@ -76,6 +74,16 @@ public class Services {
         allOrders.addAll(orderRepository.getAllOrdersByStatusAndSection(OrderStatus.Placed, section));
         allOrders.addAll(orderRepository.getAllOrdersByStatusAndSection(OrderStatus.Confirmed, section));
         allOrders.addAll(orderRepository.getAllOrdersByStatusAndSection(OrderStatus.Cancelled, section));
+        return allOrders;
+    }
+
+    public List<Order> getAllOrders() {
+        List<Order> allOrders = new ArrayList<>();
+        allOrders.addAll(orderRepository.getAllOrdersByStatus(OrderStatus.PlacedPriority));
+        allOrders.addAll(orderRepository.getAllOrdersByStatus(OrderStatus.Placed));
+        allOrders.addAll(orderRepository.getAllOrdersByStatus(OrderStatus.Honored));
+        allOrders.addAll(orderRepository.getAllOrdersByStatus(OrderStatus.Confirmed));
+        allOrders.addAll(orderRepository.getAllOrdersByStatus(OrderStatus.Cancelled));
         return allOrders;
     }
 

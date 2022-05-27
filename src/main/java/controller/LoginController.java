@@ -54,8 +54,7 @@ public class LoginController extends GenericController {
                 User loggedUser = services.login(username, password);
                 switch (loggedUser.getUserType()) {
                     case Admin -> initiateAdminLoginProcedure(loggedUser);
-                    case Pharmacist -> {
-                    }
+                    case Pharmacist -> initiatePharmacistLoginProcedure();
                     case MedicalPersonnel -> initiateMedicalPersonnelLoginProcedure(loggedUser);
                 }
                 resetTextFields();
@@ -81,6 +80,11 @@ public class LoginController extends GenericController {
     private void initiateMedicalPersonnelLoginProcedure(User loggedUser) throws IOException {
         MedicalPersonnelController medicalPersonnelController = new MedicalPersonnelController(loggedUser, services, new Stage(), this.stage);
         medicalPersonnelController.initializeViewMenuProcedure();
+    }
+
+    private void initiatePharmacistLoginProcedure() throws IOException {
+        PharmacistController pharmacistController = new PharmacistController(services, new Stage(), this.stage);
+        pharmacistController.initializeViewMenuProcedure();
     }
 
 
